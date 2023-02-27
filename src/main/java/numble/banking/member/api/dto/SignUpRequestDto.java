@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 public class SignUpRequestDto {
 
     @NotBlank
+    @Pattern(regexp = "^[a-zA-Z0-9]{5,10}+$", message = "숫자와 영문자만 입력해주세요")
     private String name;
 
     @NotBlank
