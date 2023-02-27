@@ -1,6 +1,8 @@
 package numble.banking.member.application.exception;
 
-public class DuplicatedNameException extends RuntimeException {
+import numble.banking.common.exception.DuplicatedException;
+
+public class DuplicatedNameException extends DuplicatedException {
 
     public DuplicatedNameException() {
         super();
