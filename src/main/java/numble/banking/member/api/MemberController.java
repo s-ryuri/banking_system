@@ -2,8 +2,10 @@ package numble.banking.member.api;
 
 import lombok.RequiredArgsConstructor;
 import numble.banking.member.api.dto.SignUpRequestDto;
+import numble.banking.member.api.dto.SignUpResponseDto;
 import numble.banking.member.application.MemberService;
 import numble.banking.member.application.dto.SignUpRequest;
+import numble.banking.member.application.dto.SignUpResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,9 @@ public class MemberController {
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
         final SignUpRequest signUpRequest = signUpRequestDto.toSignUpRequest();
-        memberService.signUp(signUpRequest);
+        final SignUpResponse signUpResponse = memberService.signUp(signUpRequest);
+
+        return ResponseEntity.ok().body(new SignUpResponseDto((signUpResponse)));
     }
 
 }
