@@ -5,7 +5,7 @@ import numble.banking.member.persistence.Member;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MemberFactory {
+class MemberFactory {
 
     public Member getMember(final SignUpRequest signUpRequest) {
         return Member.builder()
