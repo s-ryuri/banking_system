@@ -28,6 +28,8 @@ public class MemberService {
 
     private void checkDuplicatedName(final SignUpRequest signUpRequest) {
         memberRepository.findByName(signUpRequest.getName())
-                        .orElseThrow(() -> new DuplicatedNameException("아이디가 중복되었습니다."));
+                        .ifPresent(a -> {
+                            throw new DuplicatedNameException("아이디가 중복되었습니다.");
+                        });
     }
 }
