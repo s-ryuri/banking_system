@@ -2,6 +2,7 @@ package numble.banking.member.application;
 
 import lombok.RequiredArgsConstructor;
 import numble.banking.member.application.dto.SignUpRequest;
+import numble.banking.member.application.exception.DuplicatedNameException;
 import numble.banking.member.persistence.Member;
 import org.springframework.stereotype.Service;
 

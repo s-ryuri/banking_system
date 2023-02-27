@@ -1,4 +1,4 @@
-package numble.banking.member.application;
+package numble.banking.member.application.exception;
 
 public class DuplicatedNameException extends RuntimeException {
 
