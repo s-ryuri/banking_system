@@ -2,6 +2,7 @@ package numble.banking.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import numble.banking.member.application.exception.DuplicatedNameException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -16,7 +18,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-@RestController
+@RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
@@ -40,7 +42,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                              .body(new ErrorResponse(status.toString(), errorDescription));
     }
 
-    @ExceptionHandler(DuplicatedException.class)
+    @ExceptionHandler(DuplicatedNameException.class)
     public ResponseEntity<?> handleDuplicatedException(Throwable e) {
         return makeErrorResponseEntity(BAD_REQUEST, e.getMessage());
     }
