@@ -11,12 +11,12 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class SignUpRequestDto {
 
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z0-9]{5,10}+$", message = "숫자와 영문자만 입력해주세요")
+    @NotBlank(message = "아이디는 빈칸이면 안됩니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9]{5,10}+$", message = "숫자와 영문자만 입력해주세요, 5~10글자 입력")
     private String name;
 
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z0-9]{8,16}+$", message = "숫자와 영문자만 입력해주세요")
+    @NotBlank(message = "패스워드는 빈칸이면 안됩니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9]{8,16}+$", message = "숫자와 영문자만 입력해주세요, 8~16글자 입력")
     private String password;
 
     public SignUpRequest toSignUpRequest() {
