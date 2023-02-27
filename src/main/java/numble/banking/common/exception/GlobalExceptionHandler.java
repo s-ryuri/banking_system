@@ -42,7 +42,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                              .body(new ErrorResponse(status.toString(), errorDescription));
     }
 
-    @ExceptionHandler(DuplicatedNameException.class)
+    @ExceptionHandler(DuplicatedException.class)
     public ResponseEntity<?> handleDuplicatedException(Throwable e) {
         return makeErrorResponseEntity(BAD_REQUEST, e.getMessage());
     }
