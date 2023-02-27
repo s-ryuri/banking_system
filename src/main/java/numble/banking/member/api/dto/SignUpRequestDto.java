@@ -20,7 +20,10 @@ public class SignUpRequestDto {
     private String password;
 
     public SignUpRequest toSignUpRequest() {
-
+        return SignUpRequest.builder()
+            .name(this.name)
+            .password(this.password)
+            .build();
     }
 
 }
