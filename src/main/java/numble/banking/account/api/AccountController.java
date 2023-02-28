@@ -1,5 +1,7 @@
 package numble.banking.account.api;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import numble.banking.account.api.dto.AccountGetResponseDto;
 import numble.banking.account.application.AccountService;
@@ -24,12 +26,20 @@ public class AccountController {
 
         final List<AccountGetResponse> accountGetResponses = accountService.getAccount(memberId);
 
-        return ResponseEntity.ok().body(toGetResponseDto(accountGetResponses));
+        return ResponseEntity.ok().body(new Result(toGetResponseDto(accountGetResponses)));
     }
 
     private List<AccountGetResponseDto> toGetResponseDto(final List<AccountGetResponse> accountGetResponses) {
         return accountGetResponses.stream()
                                   .map(AccountGetResponseDto::new)
                                   .toList();
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+
+        //이런식으로 감싸줘야된다.
+        private T data;
     }
 }
