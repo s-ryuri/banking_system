@@ -45,6 +45,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return makeErrorResponseEntity(BAD_REQUEST, e.getMessage());
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleNotFoundException(Throwable e) {
+        return makeErrorResponseEntity(BAD_REQUEST, e.getMessage());
+    }
     @Getter
     @RequiredArgsConstructor
     static class ErrorResponse {

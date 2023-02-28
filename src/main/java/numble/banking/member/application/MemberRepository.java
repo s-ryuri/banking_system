@@ -14,4 +14,5 @@ public interface MemberRepository {
 
     boolean existByName(String memberName);
 
+    boolean existById(Long memberId);
 }
