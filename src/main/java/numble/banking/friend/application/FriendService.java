@@ -32,6 +32,10 @@ public class FriendService {
                       .toList();
     }
 
+    public boolean existsByFriendIdAndMemberId(final Long friendId, final Long memberId) {
+        return friendRepository.existByFriendIdAndMemberId(friendId, memberId);
+    }
+
     public FriendAddResponse addFriend(final FriendAddRequest friendAddRequest) {
         checkMemberId(friendAddRequest.getMemberId());
         checkFriendId(friendAddRequest.getFriendId());
@@ -56,7 +60,7 @@ public class FriendService {
     }
 
     private void checkDuplicateFriend(final FriendAddRequest friendAddRequest) {
-        if(friendRepository.existByFriendIdAndMemberId(friendAddRequest.getFriendId(), friendAddRequest.getMemberId())) {
+        if (friendRepository.existByFriendIdAndMemberId(friendAddRequest.getFriendId(), friendAddRequest.getMemberId())) {
             throw new DuplicatedFriendException("이미 친구추가가 되어있습니다.");
         }
     }

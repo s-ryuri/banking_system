@@ -2,6 +2,7 @@ package numble.banking.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import numble.banking.account.application.exception.NotFriendException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -48,6 +50,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<?> handleNotFoundException(Throwable e) {
         return makeErrorResponseEntity(BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(NotFriendException.class)
+    public ResponseEntity<?> handleNotFriendException(Throwable e) {
+        return makeErrorResponseEntity(BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRuntimeException(Throwable e) {
+        return makeErrorResponseEntity(INTERNAL_SERVER_ERROR, e.getMessage());
     }
     @Getter
     @RequiredArgsConstructor

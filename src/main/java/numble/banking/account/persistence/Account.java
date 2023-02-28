@@ -3,6 +3,7 @@ package numble.banking.account.persistence;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import numble.banking.account.persistence.exception.NotTransferException;
 import numble.banking.common.entity.BaseEntity;
 
 import javax.persistence.Column;
@@ -33,5 +34,16 @@ public class Account extends BaseEntity {
     public Account(final Long memberId, final Long balance) {
         this.memberId = memberId;
         this.balance = balance;
+    }
+
+    public void deposit(Long balance) {
+        this.balance += balance;
+    }
+
+    public void transfer(Long balance) {
+        if (this.balance < balance) {
+            throw new NotTransferException("보내는 계좌에 돈이 부족합니다.");
+        }
+        this.balance -= balance;
     }
 }
