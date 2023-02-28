@@ -18,7 +18,6 @@ public class SignUpRequestDto {
     @NotBlank(message = "패스워드는 빈칸이면 안됩니다.")
     @Pattern(regexp = "^[a-zA-Z0-9]{8,16}+$", message = "숫자와 영문자만 입력해주세요, 8~16글자 입력")
     private String password;
-
     public SignUpRequest toSignUpRequest() {
         return SignUpRequest.builder()
                             .name(this.name)
