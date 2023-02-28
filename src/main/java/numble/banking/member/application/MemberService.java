@@ -14,6 +14,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberFactory memberFactory;
 
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+
     public SignUpResponse signUp(final SignUpRequest signUpRequest) {
         checkDuplicatedName(signUpRequest);
         return saveMember(signUpRequest);
@@ -27,9 +31,8 @@ public class MemberService {
     }
 
     private void checkDuplicatedName(final SignUpRequest signUpRequest) {
-        memberRepository.findByName(signUpRequest.getName())
-                        .ifPresent(a -> {
-                            throw new DuplicatedNameException("아이디가 중복되었습니다.");
-                        });
+        if (memberRepository.existByName(signUpRequest.getName())) {
+            throw new DuplicatedNameException("아이디가 중복되었습니다.");
+        }
     }
 }
