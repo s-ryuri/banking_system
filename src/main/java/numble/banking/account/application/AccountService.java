@@ -7,6 +7,7 @@ import numble.banking.account.application.dto.AccountTransferResponse;
 import numble.banking.account.application.exception.NotFriendException;
 import numble.banking.account.persistence.Account;
 import numble.banking.friend.application.FriendService;
+import numble.banking.infra.AlarmService;
 import numble.banking.member.application.MemberService;
 import numble.banking.member.persistence.exception.NotFoundMemberException;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,9 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-
     private final MemberService memberService;
-
     private final FriendService friendService;
+    private final AlarmService alarmService;
 
     @Transactional(readOnly = true)
     public List<AccountGetResponse> getAccount(Long memberId) {
@@ -51,6 +51,7 @@ public class AccountService {
         checkFriend(accountTransferRequest);
         accountTransfer(accountTransferRequest);
         accountDeposit(accountTransferRequest);
+        sendAlarm();
 
         return getAccountTransferResponses(accountTransferRequest);
     }
@@ -97,5 +98,9 @@ public class AccountService {
         if (!friendService.existsByFriendIdAndMemberId(toId, fromId)) {
             throw new NotFriendException("친구한테만 계좌이체를 할 수 있습니다.");
         }
+    }
+
+    private void sendAlarm() {
+        alarmService.send();
     }
 }
