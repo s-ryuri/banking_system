@@ -35,4 +35,8 @@ public class MemberService {
             throw new DuplicatedNameException("아이디가 중복되었습니다.");
         }
     }
+
+    public boolean existsById(final Long memberId) {
+        return memberRepository.existById(memberId);
+    }
 }

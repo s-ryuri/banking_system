@@ -27,4 +27,8 @@ public class Friend extends BaseEntity {
     @Column(name = "member_id", nullable = false)
     private Long memberId;
 
+    public Friend(final Long friendId, final Long memberId) {
+        this.friendId = friendId;
+        this.memberId = memberId;
+    }
 }

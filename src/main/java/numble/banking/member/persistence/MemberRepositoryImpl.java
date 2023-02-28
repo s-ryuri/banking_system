@@ -1,12 +1,9 @@
 package numble.banking.member.persistence;
 
 import lombok.RequiredArgsConstructor;
-import numble.banking.member.application.exception.DuplicatedNameException;
 import numble.banking.member.persistence.exception.NotFoundMemberException;
 import numble.banking.member.application.MemberRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -34,5 +31,10 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public boolean existByName(final String memberName) {
         return memberJpaRepository.existsByName(memberName);
+    }
+
+    @Override
+    public boolean existById(final Long memberId) {
+        return memberJpaRepository.existsById(memberId);
     }
 }
