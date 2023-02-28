@@ -23,7 +23,7 @@ public class FriendService {
 
     private List<FriendGetResponse> showMyFriend(final List<Friend> friends) {
         return friends.stream()
-                      .map(friend -> memberService.findById(friend.getMemberId()))
+                      .map(friend -> memberService.findById(friend.getFriendId()))
                       .map(FriendGetResponse::new)
                       .toList();
     }
