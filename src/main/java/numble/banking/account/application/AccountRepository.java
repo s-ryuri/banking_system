@@ -1,0 +1,10 @@
+package numble.banking.account.application;
+
+import numble.banking.account.persistence.Account;
+
+import java.util.List;
+
+public interface AccountRepository {
+
+    List<Account> findAllByMemberId(Long memberId);
+}
