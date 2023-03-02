@@ -9,6 +9,7 @@ import numble.banking.friend.persistence.Friend;
 import numble.banking.member.application.MemberService;
 import numble.banking.member.persistence.exception.NotFoundMemberException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class FriendService {
         return friendRepository.existByFriendIdAndMemberId(friendId, memberId);
     }
 
+    @Transactional
     public FriendAddResponse addFriend(final FriendAddRequest friendAddRequest) {
         checkMemberId(friendAddRequest.getMemberId());
         checkFriendId(friendAddRequest.getFriendId());
@@ -67,5 +69,9 @@ public class FriendService {
 
     private Friend makeFriend(final FriendAddRequest friendAddRequest) {
         return new Friend(friendAddRequest.getFriendId(), friendAddRequest.getMemberId());
+    }
+
+    public void deleteAll() {
+        friendRepository.deleteAll();
     }
 }

@@ -9,4 +9,8 @@ public interface AccountRepository {
     List<Account> findAllByMemberId(Long memberId);
 
     Account findByAccountIdAndMemberId(Long accountId, Long memberId);
+
+    void save(Account account);
+
+    void deleteALl();
 }

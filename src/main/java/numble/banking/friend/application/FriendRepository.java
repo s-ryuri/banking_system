@@ -11,4 +11,6 @@ public interface FriendRepository {
     Friend save(Friend friend);
 
     boolean existByFriendIdAndMemberId(Long friendId, Long memberId);
+
+    void deleteAll();
 }

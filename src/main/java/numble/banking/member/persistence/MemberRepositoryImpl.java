@@ -37,4 +37,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     public boolean existById(final Long memberId) {
         return memberJpaRepository.existsById(memberId);
     }
+
+    @Override
+    public void deleteAll() {
+        memberJpaRepository.deleteAll();
+    }
 }

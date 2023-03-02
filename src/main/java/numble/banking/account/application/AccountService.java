@@ -21,6 +21,8 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+
+    private final LockRepository lockRepository;
     private final MemberService memberService;
     private final FriendService friendService;
     private final AlarmService alarmService;
@@ -49,8 +51,23 @@ public class AccountService {
     @Transactional
     public List<AccountTransferResponse> transfer(final AccountTransferRequest accountTransferRequest) {
         checkFriend(accountTransferRequest);
-        accountTransfer(accountTransferRequest);
-        accountDeposit(accountTransferRequest);
+
+        String lockKey = "accountLockKey";
+        while (!lockRepository.lock(lockKey)) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        try {
+            accountTransfer(accountTransferRequest);
+            accountDeposit(accountTransferRequest);
+        } finally {
+            lockRepository.unLock(lockKey);
+        }
+
         sendAlarm();
 
         return getAccountTransferResponses(accountTransferRequest);
@@ -102,5 +119,13 @@ public class AccountService {
 
     private void sendAlarm() {
         alarmService.send();
+    }
+
+    public void save(Account account) {
+        accountRepository.save(account);
+    }
+
+    public void deleteAll() {
+        accountRepository.deleteALl();
     }
 }

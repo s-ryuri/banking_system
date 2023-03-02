@@ -28,4 +28,9 @@ class FriendRepositoryImpl implements FriendRepository {
     public boolean existByFriendIdAndMemberId(final Long friendId, final Long memberId) {
         return friendJpaRepository.existsByFriendIdAndMemberId(friendId, memberId);
     }
+
+    @Override
+    public void deleteAll() {
+        friendJpaRepository.deleteAll();
+    }
 }
