@@ -23,4 +23,14 @@ public class AccountRepositoryImpl implements AccountRepository {
         return accountJpaRepository.findByIdAndMemberId(accountId, memberId)
                                    .orElseThrow(() -> new NotFoundAccountException("해당하는 계좌가 없습니다."));
     }
+
+    @Override
+    public void save(final Account account) {
+        accountJpaRepository.save(account);
+    }
+
+    @Override
+    public void deleteALl() {
+        accountJpaRepository.deleteAll();
+    }
 }

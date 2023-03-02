@@ -6,6 +6,7 @@ import numble.banking.member.application.dto.SignUpResponse;
 import numble.banking.member.application.exception.DuplicatedNameException;
 import numble.banking.member.persistence.Member;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +39,9 @@ public class MemberService {
 
     public boolean existsById(final Long memberId) {
         return memberRepository.existById(memberId);
+    }
+
+    public void deleteAll(){
+        memberRepository.deleteAll();
     }
 }
